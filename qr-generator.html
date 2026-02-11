@@ -6,23 +6,25 @@
     <title>QR Code Generator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-    <style>
-        body { text-align: center; padding: 50px; }
-        #qrcode { margin: 20px; }
-    </style>
 </head>
 <body>
     <h1>QR Code Generator</h1>
-    <p>Enter the URL to generate a QR code:</p>
-    <input type="text" id="url" value="https://David0138.github.io/Verificaci-ntlapa/verify.html" style="width: 80%;"><br><br>
-    <button id="generate">Generate QR Code</button>
-    <div id="qrcode"></div>
-
+    <input type="text" id="qr-input" placeholder="Enter text or URL" />
+    <button id="generate-btn">Generate QR Code</button>
+    <div id="qrcode" style="margin-top: 20px;"></div>
+    <a id="download-btn" style="display:none;" href="#">Download QR Code</a>
     <script>
-        $('#generate').click(function() {
-            var url = $('#url').val();
-            $('#qrcode').empty();
-            $('#qrcode').qrcode(url);
+        $(document).ready(function() {
+            $('#generate-btn').click(function() {
+                var qrValue = $('#qr-input').val();
+                $('#qrcode').empty().qrcode(qrValue);
+                $('#download-btn').show().off('click').on('click', function() {
+                    var canvas = $('#qrcode canvas')[0];
+                    var url = canvas.toDataURL("image/png");
+                    $(this).attr('href', url);
+                    $(this).attr('download', 'qr-code.png');
+                });
+            });
         });
     </script>
 </body>
