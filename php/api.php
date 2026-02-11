@@ -1,47 +1,60 @@
 <?php
-/**
- * REST API for Searching and Verifying Licenses
- */
 
-header('Content-Type: application/json');
+// REST API for License Retrieval
 
-// Database connection (replace with actual connection code)
-$mysqli = new mysqli('localhost', 'username', 'password', 'database');
+// Database connection settings
+$host = 'your_host';
+$username = 'your_username';
+$password = 'your_password';
+$database = 'your_database';
+
+$conn = new mysqli($host, $username, $password, $database);
 
 // Check connection
-if ($mysqli->connect_error) {
-    die(json_encode(['error' => 'Database connection failed: ' . $mysqli->connect_error]));
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Search Endpoint
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['query'])) {
-    $query = $mysqli->real_escape_string($_GET['query']);
-    $sql = "SELECT * FROM licenses WHERE license_number LIKE '%" . $query . "%'";
-    $result = $mysqli->query($sql);
+// Handle search and retrieval functions
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['license_id'])) {
+        // Retrieve license by ID
+        $license_id = $_GET['license_id'];
+        $sql = "SELECT * FROM licenses WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $license_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    $licenses = [];
-    while ($row = $result->fetch_assoc()) {
-        $licenses[] = $row;
-    }
+        if ($result->num_rows > 0) {
+            $license = $result->fetch_assoc();
+            echo json_encode($license);
+        } else {
+            echo json_encode(['error' => 'License not found']);
+        }
+        $stmt->close();
+    } else if (isset($_GET['search'])) {
+        // Search licenses
+        $search_query = $_GET['search'];
+        $sql = "SELECT * FROM licenses WHERE name LIKE ?";
+        $stmt = $conn->prepare($sql);
+        $search_param = "%" . $search_query . "%";
+        $stmt->bind_param('s', $search_param);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    echo json_encode($licenses);
-    exit;
-}
-
-// Verify Endpoint
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['license_number'])) {
-    $license_number = $mysqli->real_escape_string($_POST['license_number']);
-    $sql = "SELECT * FROM licenses WHERE license_number = '$license_number'";
-    $result = $mysqli->query($sql);
-
-    if ($result->num_rows > 0) {
-        $license = $result->fetch_assoc();
-        echo json_encode(['valid' => true, 'license' => $license]);
+        $licenses = [];
+        while ($row = $result->fetch_assoc()) {
+            $licenses[] = $row;
+        }
+        echo json_encode($licenses);
+        $stmt->close();
     } else {
-        echo json_encode(['valid' => false]);
+        echo json_encode(['error' => 'Invalid request']);
     }
-    exit;
+} else {
+    echo json_encode(['error' => 'Only GET method is allowed']);
 }
 
-echo json_encode(['error' => 'Invalid request method.']);
+$conn->close();
 ?>
