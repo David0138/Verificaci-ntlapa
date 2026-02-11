@@ -1,76 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación de Licencias - Tlapa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Professional License Card</title>
     <style>
-        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
-        .search-container { background: white; border-radius: 15px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width: 600px; margin: 50px auto; }
-        h1 { color: #667eea; text-align: center; margin-bottom: 30px; }
-        .form-control { border-radius: 10px; border: 2px solid #e0e0e0; }
-        .btn-search { background: #667eea; border: none; width: 100%; }
-        .btn-search:hover { background: #764ba2; }
-        .result-card { background: #f8f9fa; border-radius: 10px; padding: 20px; margin-top: 20px; border-left: 4px solid #667eea; }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <h1>🚗 Verificación de Licencias</h1>
-        <p class="text-center text-muted">Tlapa de Comonfort</p>
-        
-        <form id="searchForm">
-            <div class="mb-3">
-                <label class="form-label">Buscar por Folio, Nombre o CURP</label>
-                <input type="text" class="form-control" id="searchQuery" placeholder="Ej: C66187899" required>
-            </div>
-            <button type="submit" class="btn btn-search btn-primary">🔍 Buscar</button>
-        </form>
-
-        <div id="result"></div>
+    <div class="card">
+        <h1>Professional License Card</h1>
+        <p>Name: JUAN MANUEL CORONEL MORALED</p>
+        <p>CURP: COMJ861106HDFRRN07</p>
+        <p>Folio: C66788175</p>
+        <p>Validity: 05/12/2030</p>
     </div>
-
-    <script>
-        const licenses = [
-            { folio: 'C66187899', tipo: 'A', nombre: 'HABRAHAM', apellidos: 'OERA', curp: 'OERA850322HOCJCB07', vigencia: '2024-01-15', vence: '2027-01-15' },
-            { folio: 'C66187900', tipo: 'B', nombre: 'JUAN', apellidos: 'PEREZ', curp: 'PJUA800415HDFRRN01', vigencia: '2024-02-10', vence: '2027-02-10' },
-            { folio: 'C66187901', tipo: 'C', nombre: 'MARIA', apellidos: 'GARCIA', curp: 'GAMA900720HDFRRL12', vigencia: '2024-03-20', vence: '2027-03-20' },
-            { folio: 'C66187902', tipo: 'A', nombre: 'CARLOS', apellidos: 'MARTINEZ', curp: 'MACAR850512HCDFRS03', vigencia: '2024-04-05', vence: '2027-04-05' },
-            { folio: 'C66187903', tipo: 'D', nombre: 'LUIS', apellidos: 'RODRIGUEZ', curp: 'ROLU800623HDFNNL04', vigencia: '2024-05-14', vence: '2027-05-14' }
-        ];
-
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const query = document.getElementById('searchQuery').value.toUpperCase();
-            const resultDiv = document.getElementById('result');
-            
-            const found = licenses.filter(l => 
-                l.folio.includes(query) || 
-                l.nombre.includes(query) || 
-                l.apellidos.includes(query) ||
-                l.curp.includes(query)
-            );
-
-            if (found.length > 0) {
-                let html = '<div class="result-card"><h5>✅ Resultados encontrados:</h5>';
-                found.forEach(license => {
-                    html += `
-                        <div class="mt-3">
-                            <p><strong>Folio:</strong> ${license.folio}</p>
-                            <p><strong>Nombre:</strong> ${license.nombre} ${license.apellidos}</p>
-                            <p><strong>CURP:</strong> ${license.curp}</p>
-                            <p><strong>Tipo:</strong> ${license.tipo}</p>
-                            <p><strong>Vence:</strong> ${license.vence}</p>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-                resultDiv.innerHTML = html;
-            } else {
-                resultDiv.innerHTML = '<div class="alert alert-warning mt-3">❌ No se encontraron resultados</div>';
-            }
-        });
-    </script>
 </body>
 </html>
