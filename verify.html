@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación de Licencia</title>
+    <title>Professional License Card</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .license-card {
+            border: 1px solid #000;
+            width: 500px;
+            height: 300px;
             display: flex;
-            justify-content: space-between;
-            background-color: #f9f9f9;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
         }
         .photo {
             width: 40%;
-            margin-right: 20px;
+            background-image: url('path/to/habraham_ojeda_photo.jpg'); /* Example path */
+            background-size: cover;
+            background-position: center;
+            border-right: 1px solid #000;
         }
         .info {
-            width: 55%;
+            width: 60%;
+            padding-left: 10px;
         }
-        .info p {
-            margin: 5px 0;
+        h1 {
+            text-align: center;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>TRANSFORMANDO GUERRERO</h1>
-        <h2>GOBIERNO DEL ESTADO</h2>
-        <p>Fecha: 20-21 20-27</p>
+
+    <div class="license-card">
+        <div class="photo"></div>
+        <div class="info">
+            <h1>TRANSFORMANDO GUERRERO</h1>
+            <p>Gobierno del Estado</p>
+            <p>Date: 2026-02-11</p>
+            <p>Name: HABRAHAM OJEDA</p>
+            <p>CURP: [INSERT CURP HERE]</p>
+            <p>Folio: [INSERT FOLIO HERE]</p>
+            <p>Type: [INSERT TYPE HERE]</p>
+            <p>Vigencia: [INSERT VIGENCIA HERE]</p>
+            <p>Vence: [INSERT VENCE HERE]</p>
+        </div>
     </div>
-    <img src="HABRAHAM_OJEDA_PHOTO_URL" alt="Foto de HABRAHAM OJEDA" class="photo">
-    <div class="info">
-        <p><strong>Nombre:</strong> HABRAHAM OJEDA</p>
-        <p><strong>CURP:</strong> OERA850322HOCJCB07</p>
-        <p><strong>Folio:</strong> C66187899</p>
-        <p><strong>Tipo:</strong> A</p>
-        <p><strong>Vigencia:</strong> 2024-01-15</p>
-        <p><strong>Vence:</strong> 2027-01-15</p>
-    </div>
+
 </body>
 </html>
