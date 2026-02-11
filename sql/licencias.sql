@@ -1,0 +1,11 @@
+CREATE TABLE licenses (
+    id SERIAL PRIMARY KEY,
+    folio VARCHAR(255) NOT NULL,
+    tipo VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    curp VARCHAR(18) NOT NULL,
+    vigencia DATE NOT NULL,
+    vence DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
