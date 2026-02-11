@@ -1,17 +1,17 @@
 <?php
-
-// Database configuration
-$host = 'localhost'; // Database host
-$db_name = 'your_database_name'; // Database name
-$username = 'your_username'; // Database username
-$password = 'your_password'; // Database password
-
-// Create a connection
-$conn = new mysqli($host, $username, $password, $db_name);
-
-// Check the connection
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
+// Database configuration for Railway
+$host = getenv('DB_HOST') ?: 'localhost';
+$db_name = getenv('DB_NAME') ?: 'railway';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: '';
+$port = getenv('DB_PORT') ?: 3306;
+try {
+    $conn = new mysqli($host, $username, $password, $db_name, $port);
+    if ($conn->connect_error) {
+        die(json_encode(['error' => 'Connection failed: ' . $conn->connect_error]));
+    }
+    $conn->set_charset("utf8mb4");
+} catch (Exception $e) {
+    die(json_encode(['error' => 'Database error: ' . $e->getMessage()]));
 }
-echo 'Connected successfully';
 ?>
