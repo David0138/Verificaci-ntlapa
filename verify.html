@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Verificación de Licencia</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .license-info {
+            border: 1px solid #ccc;
+            padding: 15px;
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .photo {
+            max-width: 150px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Verificación de Licencia</h2>
+    <form id="verificationForm">
+        <div class="form-group">
+            <label for="folio">Folio:</label>
+            <input type="text" class="form-control" id="folio" required>
+        </div>
+        <div class="form-group">
+            <label for="curp">CURP:</label>
+            <input type="text" class="form-control" id="curp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Verificar</button>
+    </form>
+    <div class="license-info" id="licenseInfo" style="display:none;">
+        <h4>Información de Licencia</h4>
+        <p><strong>Nombre:</strong> HABRAHAM OJEDA</p>
+        <p><strong>Folio:</strong> C66187899</p>
+        <p><strong>CURP:</strong> OERA850322HOCJCB07</p>
+        <p><strong>Tipo:</strong> A</p>
+        <p><strong>Vigencia:</strong> 2024-01-15</p>
+        <p><strong>Vence:</strong> 2027-01-15</p>
+        <img class="photo" src="https://drive.google.com/uc?export=view&id=1EO9ytZKWBxtxBjFosmHoiKGBcZgeiTkX" alt="Licencia Photo">
+    </div>
+</div>
+<script>
+    document.getElementById('verificationForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('licenseInfo').style.display = 'block';
+    };
+</script>
+</body>
+</html>
